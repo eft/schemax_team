@@ -144,26 +144,8 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'title' => 'title',
-    'state' => 'state',
-  );
-  $handler->display->display_options['style_options']['default'] = '-1';
-  $handler->display->display_options['style_options']['info'] = array(
-    'title' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'state' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-  );
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -230,6 +212,58 @@ function schemax_team_views_default_views() {
   $handler = $view->new_display('panel_pane', 'My teams', 'panel_pane_1');
   $handler->display->display_options['pane_title'] = 'My teams';
   $handler->display->display_options['pane_description'] = 'Teams you belong to';
+  $handler->display->display_options['pane_category']['name'] = 'Sports';
+  $handler->display->display_options['pane_category']['weight'] = '0';
+  $handler->display->display_options['argument_input'] = array(
+    'etid' => array(
+      'type' => 'context',
+      'context' => 'entity:user.uid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'We pass to the &quot;Entity ID&quot; the User ID.',
+    ),
+  );
+
+  /* Display: My teams - short */
+  $handler = $view->new_display('panel_pane', 'My teams - short', 'panel_pane_2');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['display_description'] = 'Minimalist representation of a user\'s teams';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['row_class'] = 'team-list-short';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['separator'] = ',';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'og_membership_related_node_group';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['hide_alter_empty'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: We pass the user ID as the Entity ID. */
+  $handler->display->display_options['arguments']['etid']['id'] = 'etid';
+  $handler->display->display_options['arguments']['etid']['table'] = 'og_membership';
+  $handler->display->display_options['arguments']['etid']['field'] = 'etid';
+  $handler->display->display_options['arguments']['etid']['ui_name'] = 'We pass the user ID as the Entity ID.';
+  $handler->display->display_options['arguments']['etid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['etid']['default_argument_type'] = 'current_user';
+  $handler->display->display_options['arguments']['etid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['etid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['etid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['etid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['etid']['validate']['type'] = 'user';
+  $handler->display->display_options['pane_title'] = 'My teams (short form)';
+  $handler->display->display_options['pane_description'] = 'Teams you belong to (separated by commas)';
   $handler->display->display_options['pane_category']['name'] = 'Sports';
   $handler->display->display_options['pane_category']['weight'] = '0';
   $handler->display->display_options['argument_input'] = array(
