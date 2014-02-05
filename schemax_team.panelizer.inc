@@ -42,10 +42,10 @@ function schemax_team_panelizer_defaults() {
       'content' => NULL,
       'default' => NULL,
     ),
-    'style' => 'default',
+    'style' => 'tabs',
   );
   $display->cache = array();
-  $display->title = '%node:title';
+  $display->title = 'No Title';
   $display->uuid = '1ee65ea1-6549-425d-a753-cabdfc50fa90';
   $display->content = array();
   $display->panels = array();
@@ -99,7 +99,7 @@ function schemax_team_panelizer_defaults() {
     $pane->uuid = 'aa782a96-1354-4628-9cc3-98cd3a07615f';
     $display->content['new-aa782a96-1354-4628-9cc3-98cd3a07615f'] = $pane;
     $display->panels['content'][1] = 'new-aa782a96-1354-4628-9cc3-98cd3a07615f';
-  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $panelizer->display = $display;
   $export['node:schemax_team:default:default'] = $panelizer;
