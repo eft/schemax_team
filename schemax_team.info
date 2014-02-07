@@ -9,6 +9,7 @@ dependencies[] = list
 dependencies[] = og_ui
 dependencies[] = options
 dependencies[] = panelizer
+dependencies[] = schemax_base
 dependencies[] = strongarm
 dependencies[] = views_content
 features[ctools][] = panelizer:panelizer:1

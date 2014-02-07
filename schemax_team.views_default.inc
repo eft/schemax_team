@@ -89,6 +89,10 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['field_schemax_team_roles']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_team_roles']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_schemax_team_roles']['field_api_classes'] = TRUE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
   /* Sort criterion: Content: Date -  start date (field_date) */
   $handler->display->display_options['sorts']['field_date_value']['id'] = 'field_date_value';
   $handler->display->display_options['sorts']['field_date_value']['table'] = 'field_data_field_date';
@@ -177,6 +181,65 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  /* Field: Content: First Name */
+  $handler->display->display_options['fields']['field_schemax_first_name']['id'] = 'field_schemax_first_name';
+  $handler->display->display_options['fields']['field_schemax_first_name']['table'] = 'field_data_field_schemax_first_name';
+  $handler->display->display_options['fields']['field_schemax_first_name']['field'] = 'field_schemax_first_name';
+  $handler->display->display_options['fields']['field_schemax_first_name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_schemax_first_name']['alter']['path'] = 'node/[nid]';
+  $handler->display->display_options['fields']['field_schemax_first_name']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_first_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_first_name']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_first_name']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_first_name']['field_api_classes'] = TRUE;
+  /* Field: Content: Last Name */
+  $handler->display->display_options['fields']['field_schemax_last_name']['id'] = 'field_schemax_last_name';
+  $handler->display->display_options['fields']['field_schemax_last_name']['table'] = 'field_data_field_schemax_last_name';
+  $handler->display->display_options['fields']['field_schemax_last_name']['field'] = 'field_schemax_last_name';
+  $handler->display->display_options['fields']['field_schemax_last_name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_schemax_last_name']['alter']['path'] = 'node/[nid]';
+  $handler->display->display_options['fields']['field_schemax_last_name']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_last_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_last_name']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_last_name']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_last_name']['field_api_classes'] = TRUE;
+  /* Field: Content: Phone */
+  $handler->display->display_options['fields']['field_schemax_phone']['id'] = 'field_schemax_phone';
+  $handler->display->display_options['fields']['field_schemax_phone']['table'] = 'field_data_field_schemax_phone';
+  $handler->display->display_options['fields']['field_schemax_phone']['field'] = 'field_schemax_phone';
+  $handler->display->display_options['fields']['field_schemax_phone']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_phone']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_phone']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_phone']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_phone']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_schemax_phone']['field_api_classes'] = TRUE;
+  /* Field: Content: Email */
+  $handler->display->display_options['fields']['field_schemax_email']['id'] = 'field_schemax_email';
+  $handler->display->display_options['fields']['field_schemax_email']['table'] = 'field_data_field_schemax_email';
+  $handler->display->display_options['fields']['field_schemax_email']['field'] = 'field_schemax_email';
+  $handler->display->display_options['fields']['field_schemax_email']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_email']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_email']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_email']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_email']['field_api_classes'] = TRUE;
+  /* Field: Content: Team Role(s) */
+  $handler->display->display_options['fields']['field_schemax_team_roles']['id'] = 'field_schemax_team_roles';
+  $handler->display->display_options['fields']['field_schemax_team_roles']['table'] = 'field_data_field_schemax_team_roles';
+  $handler->display->display_options['fields']['field_schemax_team_roles']['field'] = 'field_schemax_team_roles';
+  $handler->display->display_options['fields']['field_schemax_team_roles']['label'] = '';
+  $handler->display->display_options['fields']['field_schemax_team_roles']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_schemax_team_roles']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_team_roles']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_team_roles']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_team_roles']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_team_roles']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_schemax_team_roles']['field_api_classes'] = TRUE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Last Name (field_schemax_last_name) */
   $handler->display->display_options['sorts']['field_schemax_last_name_value']['id'] = 'field_schemax_last_name_value';
