@@ -103,6 +103,31 @@ function schemax_team_panelizer_defaults() {
     $display->content['new-aa782a96-1354-4628-9cc3-98cd3a07615f'] = $pane;
     $display->panels['left'][1] = 'new-aa782a96-1354-4628-9cc3-98cd3a07615f';
     $pane = new stdClass();
+    $pane->pid = 'new-7cb93d9f-c738-460b-9115-3815ee0d964b';
+    $pane->panel = 'left';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'schemax_team_content-panel_pane_news_list';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'panelizer',
+      ),
+      'override_title' => 1,
+      'override_title_text' => 'News',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $pane->uuid = '7cb93d9f-c738-460b-9115-3815ee0d964b';
+    $display->content['new-7cb93d9f-c738-460b-9115-3815ee0d964b'] = $pane;
+    $display->panels['left'][2] = 'new-7cb93d9f-c738-460b-9115-3815ee0d964b';
+    $pane = new stdClass();
     $pane->pid = 'new-7c14b98a-cf16-4a7f-a636-aaee0ed5f753';
     $pane->panel = 'right';
     $pane->type = 'node_prepopulate';

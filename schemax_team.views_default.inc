@@ -93,10 +93,11 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  /* Sort criterion: Content: Date -  start date (field_date) */
-  $handler->display->display_options['sorts']['field_date_value']['id'] = 'field_date_value';
-  $handler->display->display_options['sorts']['field_date_value']['table'] = 'field_data_field_date';
-  $handler->display->display_options['sorts']['field_date_value']['field'] = 'field_date_value';
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';
   $handler->display->display_options['arguments']['gid']['table'] = 'og_membership';
@@ -360,6 +361,7 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['relationships']['field_schemax_location_reference_target_id']['id'] = 'field_schemax_location_reference_target_id';
   $handler->display->display_options['relationships']['field_schemax_location_reference_target_id']['table'] = 'field_data_field_schemax_location_reference';
   $handler->display->display_options['relationships']['field_schemax_location_reference_target_id']['field'] = 'field_schemax_location_reference_target_id';
+  $handler->display->display_options['relationships']['field_schemax_location_reference_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
@@ -445,7 +447,7 @@ function schemax_team_views_default_views() {
   );
   $handler->display->display_options['filters']['field_date_value2']['default_date'] = 'now';
   $handler->display->display_options['pane_title'] = 'Team Events';
-  $handler->display->display_options['pane_description'] = 'Events associated with the team';
+  $handler->display->display_options['pane_description'] = 'Events associated with one or more teams';
   $handler->display->display_options['pane_category']['name'] = 'Sports';
   $handler->display->display_options['pane_category']['weight'] = '0';
   $handler->display->display_options['allow']['use_pager'] = 0;
@@ -466,6 +468,169 @@ function schemax_team_views_default_views() {
       'fixed' => '',
       'label' => 'OG membership: Group ID',
     ),
+  );
+
+  /* Display: News */
+  $handler = $view->new_display('panel_pane', 'News', 'panel_pane_news_list');
+  $handler->display->display_options['display_description'] = 'News (announcements etc.) associated with a team';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'field_schemax_team_roles',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_schemax_first_name' => 'field_schemax_first_name',
+    'field_schemax_last_name' => 'field_schemax_last_name',
+    'field_schemax_phone' => 'field_schemax_phone',
+    'field_schemax_email' => 'field_schemax_email',
+    'field_schemax_team_roles' => 'field_schemax_team_roles',
+  );
+  $handler->display->display_options['style_options']['default'] = 'field_schemax_last_name';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_schemax_first_name' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_schemax_last_name' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_schemax_phone' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_schemax_email' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_schemax_team_roles' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: OG membership: OG membership from Node */
+  $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
+  $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
+  $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  /* Field: Content: Body */
+  $handler->display->display_options['fields']['body']['id'] = 'body';
+  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
+  $handler->display->display_options['fields']['body']['field'] = 'body';
+  $handler->display->display_options['fields']['body']['element_type'] = '0';
+  $handler->display->display_options['fields']['body']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['body']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['body']['field_api_classes'] = TRUE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  /* Filter criterion: OG membership: Group_type */
+  $handler->display->display_options['filters']['group_type']['id'] = 'group_type';
+  $handler->display->display_options['filters']['group_type']['table'] = 'og_membership';
+  $handler->display->display_options['filters']['group_type']['field'] = 'group_type';
+  $handler->display->display_options['filters']['group_type']['relationship'] = 'og_membership_rel';
+  $handler->display->display_options['filters']['group_type']['value'] = array(
+    'node' => 'node',
+  );
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'schemax_news' => 'schemax_news',
+  );
+  $handler->display->display_options['pane_title'] = 'Team News';
+  $handler->display->display_options['pane_description'] = 'News associated with one or more teams';
+  $handler->display->display_options['pane_category']['name'] = 'Sports';
+  $handler->display->display_options['pane_category']['weight'] = '0';
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 'title_override';
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'gid' => array(
+      'type' => 'context',
+      'context' => 'entity:node.nid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'OG membership: Group ID',
+    ),
+  );
+  $translatables['schemax_team_content'] = array(
+    t('Defaults'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('There is no content in this group.'),
+    t('OG membership from node'),
+    t('First Name'),
+    t('Last Name'),
+    t('Phone'),
+    t('Email'),
+    t('Nid'),
+    t('All'),
+    t('Roster'),
+    t('Persons (players, coaches etc.) associated with a team'),
+    t('Team Roster'),
+    t('Person(s) associated with the team'),
+    t('Sports'),
+    t('Events'),
+    t('Events (games, practices etc.) associated with a team'),
+    t('Content entity referenced from field_schemax_location_reference'),
+    t('Title'),
+    t('Date'),
+    t('Location'),
+    t('Playing Surface'),
+    t('Team Events'),
+    t('Events associated with one or more teams'),
+    t('News'),
+    t('News (announcements etc.) associated with a team'),
+    t('Body'),
+    t('Team News'),
+    t('News associated with one or more teams'),
   );
   $export['schemax_team_content'] = $view;
 
@@ -527,6 +692,23 @@ function schemax_team_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'teams';
+  $translatables['schemax_teams'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Page'),
+  );
   $export['schemax_teams'] = $view;
 
   $view = new view();
@@ -698,6 +880,35 @@ function schemax_team_views_default_views() {
       'fixed' => '',
       'label' => 'We pass to the &quot;Entity ID&quot; the User ID.',
     ),
+  );
+  $translatables['schemax_user_teams'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('User is not a member of any group.'),
+    t('Group node from OG membership'),
+    t('Group'),
+    t('Member since'),
+    t('All'),
+    t('%1\'s groups'),
+    t('My teams'),
+    t('Teams you belong to'),
+    t('Sports'),
+    t('My teams - short'),
+    t('Minimalist representation of a user\'s teams'),
+    t('My teams (short form)'),
+    t('Teams you belong to (separated by commas)'),
   );
   $export['schemax_user_teams'] = $view;
 
