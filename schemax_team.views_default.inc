@@ -110,6 +110,12 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['arguments']['gid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['gid']['specify_validation'] = TRUE;
   $handler->display->display_options['arguments']['gid']['validate']['type'] = 'og';
+  /* Contextual filter: OG membership: Group ID */
+  $handler->display->display_options['arguments']['gid_1']['id'] = 'gid_1';
+  $handler->display->display_options['arguments']['gid_1']['table'] = 'og_membership';
+  $handler->display->display_options['arguments']['gid_1']['field'] = 'gid';
+  $handler->display->display_options['arguments']['gid_1']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['gid_1']['summary']['format'] = 'default_summary';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -241,6 +247,16 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['field_schemax_team_roles']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_team_roles']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_schemax_team_roles']['field_api_classes'] = TRUE;
+  /* Field: Content: League */
+  $handler->display->display_options['fields']['field_schemax_league']['id'] = 'field_schemax_league';
+  $handler->display->display_options['fields']['field_schemax_league']['table'] = 'field_data_field_schemax_league';
+  $handler->display->display_options['fields']['field_schemax_league']['field'] = 'field_schemax_league';
+  $handler->display->display_options['fields']['field_schemax_league']['label'] = '';
+  $handler->display->display_options['fields']['field_schemax_league']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_league']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_league']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_league']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_league']['field_api_classes'] = TRUE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Last Name (field_schemax_last_name) */
   $handler->display->display_options['sorts']['field_schemax_last_name_value']['id'] = 'field_schemax_last_name_value';
@@ -589,6 +605,113 @@ function schemax_team_views_default_views() {
       'label' => 'OG membership: Group ID',
     ),
   );
+
+  /* Display: Team Overview */
+  $handler = $view->new_display('panel_pane', 'Team Overview', 'panel_pane_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Team Overview';
+  $handler->display->display_options['display_description'] = 'Team information';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'field_schemax_club' => 'field_schemax_club',
+    'field_schemax_district' => 'field_schemax_district',
+    'field_schemax_league' => 'field_schemax_league',
+    'field_schemax_age_group' => 'field_schemax_age_group',
+    'field_schemax_max_players' => 'field_schemax_max_players',
+  );
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Club */
+  $handler->display->display_options['fields']['field_schemax_club']['id'] = 'field_schemax_club';
+  $handler->display->display_options['fields']['field_schemax_club']['table'] = 'field_data_field_schemax_club';
+  $handler->display->display_options['fields']['field_schemax_club']['field'] = 'field_schemax_club';
+  $handler->display->display_options['fields']['field_schemax_club']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_club']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_club']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_club']['field_api_classes'] = TRUE;
+  /* Field: Content: District */
+  $handler->display->display_options['fields']['field_schemax_district']['id'] = 'field_schemax_district';
+  $handler->display->display_options['fields']['field_schemax_district']['table'] = 'field_data_field_schemax_district';
+  $handler->display->display_options['fields']['field_schemax_district']['field'] = 'field_schemax_district';
+  $handler->display->display_options['fields']['field_schemax_district']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_district']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_district']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_district']['field_api_classes'] = TRUE;
+  /* Field: Content: League */
+  $handler->display->display_options['fields']['field_schemax_league']['id'] = 'field_schemax_league';
+  $handler->display->display_options['fields']['field_schemax_league']['table'] = 'field_data_field_schemax_league';
+  $handler->display->display_options['fields']['field_schemax_league']['field'] = 'field_schemax_league';
+  $handler->display->display_options['fields']['field_schemax_league']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_league']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_league']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_league']['field_api_classes'] = TRUE;
+  /* Field: Content: Age Group */
+  $handler->display->display_options['fields']['field_schemax_age_group']['id'] = 'field_schemax_age_group';
+  $handler->display->display_options['fields']['field_schemax_age_group']['table'] = 'field_data_field_schemax_age_group';
+  $handler->display->display_options['fields']['field_schemax_age_group']['field'] = 'field_schemax_age_group';
+  $handler->display->display_options['fields']['field_schemax_age_group']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_age_group']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_age_group']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_age_group']['field_api_classes'] = TRUE;
+  /* Field: Content: Max Players */
+  $handler->display->display_options['fields']['field_schemax_max_players']['id'] = 'field_schemax_max_players';
+  $handler->display->display_options['fields']['field_schemax_max_players']['table'] = 'field_data_field_schemax_max_players';
+  $handler->display->display_options['fields']['field_schemax_max_players']['field'] = 'field_schemax_max_players';
+  $handler->display->display_options['fields']['field_schemax_max_players']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_max_players']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_max_players']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_max_players']['settings'] = array(
+    'thousand_separator' => ' ',
+    'prefix_suffix' => 1,
+  );
+  $handler->display->display_options['fields']['field_schemax_max_players']['field_api_classes'] = TRUE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Group (group_group) */
+  $handler->display->display_options['filters']['group_group_value']['id'] = 'group_group_value';
+  $handler->display->display_options['filters']['group_group_value']['table'] = 'field_data_group_group';
+  $handler->display->display_options['filters']['group_group_value']['field'] = 'group_group_value';
+  $handler->display->display_options['filters']['group_group_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['pane_title'] = 'Team Overview';
+  $handler->display->display_options['pane_description'] = 'Information about a team';
+  $handler->display->display_options['pane_category']['name'] = 'Sports';
+  $handler->display->display_options['pane_category']['weight'] = '0';
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 'title_override';
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'gid' => array(
+      'type' => 'context',
+      'context' => 'entity:node.nid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'OG membership: Group ID',
+    ),
+  );
   $translatables['schemax_team_content'] = array(
     t('Defaults'),
     t('more'),
@@ -631,6 +754,14 @@ function schemax_team_views_default_views() {
     t('Body'),
     t('Team News'),
     t('News associated with one or more teams'),
+    t('Team Overview'),
+    t('Team information'),
+    t('Club'),
+    t('District'),
+    t('League'),
+    t('Age Group'),
+    t('Max Players'),
+    t('Information about a team'),
   );
   $export['schemax_team_content'] = $view;
 

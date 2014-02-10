@@ -10,85 +10,136 @@
 function schemax_team_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'group_access'
-  $field_bases['group_access'] = array(
+  // Exported field_base: 'field_schemax_age_group'
+  $field_bases['field_schemax_age_group'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'group_access',
-    'foreign keys' => array(),
+    'field_name' => 'field_schemax_age_group',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
-      'value' => array(
-        0 => 'value',
+      'format' => array(
+        0 => 'format',
       ),
     ),
     'locked' => 0,
-    'module' => 'list',
-    'no_ui' => TRUE,
+    'module' => 'text',
     'settings' => array(
-      'allowed_values' => array(
-        0 => 'Public - accessible to all site users',
-        1 => 'Private - accessible only to group members',
-      ),
-      'allowed_values_function' => '',
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'list_boolean',
+    'type' => 'text',
   );
 
-  // Exported field_base: 'group_content_access'
-  $field_bases['group_content_access'] = array(
+  // Exported field_base: 'field_schemax_club'
+  $field_bases['field_schemax_club'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'group_content_access',
-    'foreign keys' => array(),
+    'field_name' => 'field_schemax_club',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
-      'value' => array(
-        0 => 'value',
+      'format' => array(
+        0 => 'format',
       ),
     ),
     'locked' => 0,
-    'module' => 'list',
-    'no_ui' => TRUE,
+    'module' => 'text',
     'settings' => array(
-      'allowed_values' => array(
-        0 => 'Use group defaults',
-        1 => 'Public - accessible to all site users',
-        2 => 'Private - accessible only to group members',
-      ),
-      'allowed_values_function' => '',
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'list_integer',
+    'type' => 'text',
   );
 
-  // Exported field_base: 'group_group'
-  $field_bases['group_group'] = array(
+  // Exported field_base: 'field_schemax_district'
+  $field_bases['field_schemax_district'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'group_group',
-    'foreign keys' => array(),
+    'field_name' => 'field_schemax_district',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
-      'value' => array(
-        0 => 'value',
+      'format' => array(
+        0 => 'format',
       ),
     ),
     'locked' => 0,
-    'module' => 'list',
+    'module' => 'text',
     'settings' => array(
-      'allowed_values' => array(
-        0 => 'Not a group',
-        1 => 'Group',
-      ),
-      'allowed_values_function' => '',
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'list_boolean',
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_schemax_league'
+  $field_bases['field_schemax_league'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_schemax_league',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_schemax_max_players'
+  $field_bases['field_schemax_max_players'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_schemax_max_players',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
   );
 
   return $field_bases;
