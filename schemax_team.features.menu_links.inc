@@ -10,6 +10,32 @@
 function schemax_team_menu_default_menu_links() {
   $menu_links = array();
 
+  // Exported menu link: menu-team-menu_availability:menutoken/53140e16245be
+  $menu_links['menu-team-menu_availability:menutoken/53140e16245be'] = array(
+    'menu_name' => 'menu-team-menu',
+    'link_path' => 'menutoken/53140e16245be',
+    'router_path' => 'menutoken/%',
+    'link_title' => 'Availability',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'menu_token_link_path' => 'node/[site:og-context--node:nid]/availability',
+      'menu_token_data' => array(),
+      'menu_token_options' => array(
+        'clear' => 0,
+      ),
+      'alter' => TRUE,
+      'identifier' => 'menu-team-menu_availability:menutoken/53140e16245be',
+    ),
+    'module' => 'menu',
+    'hidden' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'expanded' => 0,
+    'weight' => 0,
+    'customized' => 1,
+  );
   // Exported menu link: menu-team-menu_events:menutoken/531023399678a
   $menu_links['menu-team-menu_events:menutoken/531023399678a'] = array(
     'menu_name' => 'menu-team-menu',
@@ -116,6 +142,7 @@ function schemax_team_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
+  t('Availability');
   t('Events');
   t('News');
   t('Overview');
