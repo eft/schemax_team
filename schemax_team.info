@@ -32,7 +32,6 @@ features[menu_links][] = schemax-team-menu_events:menutoken/53181e5d7ee82
 features[menu_links][] = schemax-team-menu_news:menutoken/53181e7775ec4
 features[menu_links][] = schemax-team-menu_overview:menutoken/53181e201c0dc
 features[menu_links][] = schemax-team-menu_roster:menutoken/53181e4ba8bb0
-features[menu_links][] = schemax-team-menu_roster:menutoken/5318b5931f0c4
 features[node][] = schemax_team
 features[panelizer_defaults][] = node:schemax_team:default:default
 features[variable][] = comment_anonymous_schemax_team
