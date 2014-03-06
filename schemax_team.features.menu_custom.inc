@@ -16,11 +16,11 @@ function schemax_team_menu_default_menu_custom() {
     'title' => 'Schemax Team Menu',
     'description' => 'The <em>Schemax Team Menu<em> includes links that appear in the context of each Team (group)',
   );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('Schemax Team Menu');
   t('The <em>Schemax Team Menu<em> includes links that appear in the context of each Team (group)');
+
 
   return $menus;
 }
