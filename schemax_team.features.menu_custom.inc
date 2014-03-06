@@ -10,17 +10,17 @@
 function schemax_team_menu_default_menu_custom() {
   $menus = array();
 
-  // Exported menu: menu-team-menu.
-  $menus['menu-team-menu'] = array(
-    'menu_name' => 'menu-team-menu',
-    'title' => 'Team Menu',
-    'description' => 'Links that appear in the context of each Team (group)',
+  // Exported menu: schemax-team-menu.
+  $menus['schemax-team-menu'] = array(
+    'menu_name' => 'schemax-team-menu',
+    'title' => 'Schemax Team Menu',
+    'description' => 'The <em>Schemax Team Menu<em> includes links that appear in the context of each Team (group)',
   );
+
   // Translatables
   // Included for use with string extractors like potx.
-  t('Links that appear in the context of each Team (group)');
-  t('Team Menu');
-
+  t('Schemax Team Menu');
+  t('The <em>Schemax Team Menu<em> includes links that appear in the context of each Team (group)');
 
   return $menus;
 }
