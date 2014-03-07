@@ -42,7 +42,7 @@ function schemax_team_panelizer_defaults() {
       'content' => NULL,
       'default' => NULL,
     ),
-    'style' => 'tabs',
+    'style' => 'default',
     'right' => array(
       'style' => 'default',
     ),
@@ -53,15 +53,17 @@ function schemax_team_panelizer_defaults() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-0f001114-84d5-434f-a4b3-452a13c648e4';
+    $pane->pid = 'new-bd33ed19-32fc-4f6f-aa05-0802a0f0ff07';
     $pane->panel = 'left';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'schemax_team_content-panel_pane_1';
+    $pane->type = 'entity_view';
+    $pane->subtype = 'node';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'override_title' => 1,
-      'override_title_text' => 'Overview',
+      'view_mode' => 'full',
+      'context' => 'panelizer',
+      'override_title' => 0,
+      'override_title_text' => '',
     );
     $pane->cache = array();
     $pane->style = array(
@@ -71,9 +73,9 @@ function schemax_team_panelizer_defaults() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '0f001114-84d5-434f-a4b3-452a13c648e4';
-    $display->content['new-0f001114-84d5-434f-a4b3-452a13c648e4'] = $pane;
-    $display->panels['left'][0] = 'new-0f001114-84d5-434f-a4b3-452a13c648e4';
+    $pane->uuid = 'bd33ed19-32fc-4f6f-aa05-0802a0f0ff07';
+    $display->content['new-bd33ed19-32fc-4f6f-aa05-0802a0f0ff07'] = $pane;
+    $display->panels['left'][0] = 'new-bd33ed19-32fc-4f6f-aa05-0802a0f0ff07';
     $pane = new stdClass();
     $pane->pid = 'new-7c14b98a-cf16-4a7f-a636-aaee0ed5f753';
     $pane->panel = 'right';

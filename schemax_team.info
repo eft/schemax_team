@@ -42,6 +42,7 @@ features[variable][] = comment_preview_schemax_team
 features[variable][] = comment_schemax_team
 features[variable][] = comment_subject_field_schemax_team
 features[variable][] = field_bundle_settings_node__schemax_team
+features[variable][] = language_content_type_schemax_team
 features[variable][] = menu_options_schemax_team
 features[variable][] = menu_parent_schemax_team
 features[variable][] = node_options_schemax_team
