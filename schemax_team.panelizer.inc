@@ -30,7 +30,7 @@ function schemax_team_panelizer_defaults() {
   $panelizer->link_to_entity = TRUE;
   $panelizer->extra = array();
   $display = new panels_display();
-  $display->layout = 'twocol';
+  $display->layout = 'blah';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -54,7 +54,7 @@ function schemax_team_panelizer_defaults() {
   $display->panels = array();
     $pane = new stdClass();
     $pane->pid = 'new-bd33ed19-32fc-4f6f-aa05-0802a0f0ff07';
-    $pane->panel = 'left';
+    $pane->panel = 'content';
     $pane->type = 'entity_view';
     $pane->subtype = 'node';
     $pane->shown = TRUE;
@@ -75,32 +75,7 @@ function schemax_team_panelizer_defaults() {
     $pane->locks = array();
     $pane->uuid = 'bd33ed19-32fc-4f6f-aa05-0802a0f0ff07';
     $display->content['new-bd33ed19-32fc-4f6f-aa05-0802a0f0ff07'] = $pane;
-    $display->panels['left'][0] = 'new-bd33ed19-32fc-4f6f-aa05-0802a0f0ff07';
-    $pane = new stdClass();
-    $pane->pid = 'new-7c14b98a-cf16-4a7f-a636-aaee0ed5f753';
-    $pane->panel = 'right';
-    $pane->type = 'node_prepopulate';
-    $pane->subtype = 'node_prepopulate';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'types' => array(),
-      'field_name' => 'og_group_ref',
-      'context' => 'panelizer',
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '7c14b98a-cf16-4a7f-a636-aaee0ed5f753';
-    $display->content['new-7c14b98a-cf16-4a7f-a636-aaee0ed5f753'] = $pane;
-    $display->panels['right'][0] = 'new-7c14b98a-cf16-4a7f-a636-aaee0ed5f753';
+    $display->panels['content'][0] = 'new-bd33ed19-32fc-4f6f-aa05-0802a0f0ff07';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $panelizer->display = $display;
