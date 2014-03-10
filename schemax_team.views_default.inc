@@ -317,7 +317,9 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'title' => 'title',
-    'body' => 'body',
+    'field_date' => 'field_date',
+    'field_schemax_location_reference' => 'field_schemax_location_reference',
+    'field_schemax_playing_surfaces' => 'field_schemax_playing_surfaces',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -328,7 +330,19 @@ function schemax_team_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'body' => array(
+    'field_date' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_schemax_location_reference' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_schemax_playing_surfaces' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -358,7 +372,6 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['field_date']['id'] = 'field_date';
   $handler->display->display_options['fields']['field_date']['table'] = 'field_data_field_date';
   $handler->display->display_options['fields']['field_date']['field'] = 'field_date';
-  $handler->display->display_options['fields']['field_date']['label'] = '';
   $handler->display->display_options['fields']['field_date']['element_type'] = '0';
   $handler->display->display_options['fields']['field_date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_date']['element_wrapper_type'] = '0';
@@ -377,13 +390,12 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['field_schemax_location_reference']['id'] = 'field_schemax_location_reference';
   $handler->display->display_options['fields']['field_schemax_location_reference']['table'] = 'field_data_field_schemax_location_reference';
   $handler->display->display_options['fields']['field_schemax_location_reference']['field'] = 'field_schemax_location_reference';
-  $handler->display->display_options['fields']['field_schemax_location_reference']['label'] = '';
   $handler->display->display_options['fields']['field_schemax_location_reference']['element_type'] = '0';
   $handler->display->display_options['fields']['field_schemax_location_reference']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_location_reference']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_schemax_location_reference']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_location_reference']['settings'] = array(
-    'link' => 0,
+    'link' => 1,
   );
   $handler->display->display_options['fields']['field_schemax_location_reference']['field_api_classes'] = TRUE;
   /* Field: Content: Playing Surfaces */
@@ -391,11 +403,12 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['table'] = 'field_data_field_schemax_playing_surfaces';
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['field'] = 'field_schemax_playing_surfaces';
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['relationship'] = 'field_schemax_location_reference_target_id';
-  $handler->display->display_options['fields']['field_schemax_playing_surfaces']['label'] = '';
+  $handler->display->display_options['fields']['field_schemax_playing_surfaces']['label'] = 'Surface';
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['element_type'] = '0';
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_playing_surfaces']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['field_api_classes'] = TRUE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
@@ -477,6 +490,9 @@ function schemax_team_views_default_views() {
     t('OG membership from node'),
     t('Content entity referenced from field_schemax_location_reference'),
     t('Title'),
+    t('Date'),
+    t('Location'),
+    t('Surface'),
     t('All'),
     t('Content pane'),
     t('View panes'),
@@ -717,31 +733,30 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
-  /* Field: Content: Last Name */
-  $handler->display->display_options['fields']['field_schemax_last_name']['id'] = 'field_schemax_last_name';
-  $handler->display->display_options['fields']['field_schemax_last_name']['table'] = 'field_data_field_schemax_last_name';
-  $handler->display->display_options['fields']['field_schemax_last_name']['field'] = 'field_schemax_last_name';
-  $handler->display->display_options['fields']['field_schemax_last_name']['label'] = '';
-  $handler->display->display_options['fields']['field_schemax_last_name']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_schemax_last_name']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_schemax_last_name']['element_wrapper_type'] = '0';
-  $handler->display->display_options['fields']['field_schemax_last_name']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_schemax_last_name']['field_api_classes'] = TRUE;
-  /* Field: Content: First Name */
-  $handler->display->display_options['fields']['field_schemax_first_name']['id'] = 'field_schemax_first_name';
-  $handler->display->display_options['fields']['field_schemax_first_name']['table'] = 'field_data_field_schemax_first_name';
-  $handler->display->display_options['fields']['field_schemax_first_name']['field'] = 'field_schemax_first_name';
-  $handler->display->display_options['fields']['field_schemax_first_name']['label'] = '';
-  $handler->display->display_options['fields']['field_schemax_first_name']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_schemax_first_name']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_schemax_first_name']['element_wrapper_type'] = '0';
-  $handler->display->display_options['fields']['field_schemax_first_name']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_schemax_first_name']['field_api_classes'] = TRUE;
+  /* Field: Field: Image */
+  $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
+  $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['label'] = '';
+  $handler->display->display_options['fields']['field_image']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_image']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_image']['settings'] = array(
+    'image_style' => 'very_small',
+    'image_link' => 'content',
+  );
+  $handler->display->display_options['fields']['field_image']['field_api_classes'] = TRUE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = 'Name';
   /* Field: Content: Phone */
   $handler->display->display_options['fields']['field_schemax_phone']['id'] = 'field_schemax_phone';
   $handler->display->display_options['fields']['field_schemax_phone']['table'] = 'field_data_field_schemax_phone';
   $handler->display->display_options['fields']['field_schemax_phone']['field'] = 'field_schemax_phone';
-  $handler->display->display_options['fields']['field_schemax_phone']['label'] = '';
   $handler->display->display_options['fields']['field_schemax_phone']['element_type'] = '0';
   $handler->display->display_options['fields']['field_schemax_phone']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_phone']['element_wrapper_type'] = '0';
@@ -752,7 +767,6 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['field_schemax_email']['id'] = 'field_schemax_email';
   $handler->display->display_options['fields']['field_schemax_email']['table'] = 'field_data_field_schemax_email';
   $handler->display->display_options['fields']['field_schemax_email']['field'] = 'field_schemax_email';
-  $handler->display->display_options['fields']['field_schemax_email']['label'] = '';
   $handler->display->display_options['fields']['field_schemax_email']['element_type'] = '0';
   $handler->display->display_options['fields']['field_schemax_email']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_email']['element_wrapper_type'] = '0';
@@ -763,22 +777,14 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['field_schemax_team_roles']['table'] = 'field_data_field_schemax_team_roles';
   $handler->display->display_options['fields']['field_schemax_team_roles']['field'] = 'field_schemax_team_roles';
   $handler->display->display_options['fields']['field_schemax_team_roles']['label'] = '';
+  $handler->display->display_options['fields']['field_schemax_team_roles']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_schemax_team_roles']['element_type'] = '0';
   $handler->display->display_options['fields']['field_schemax_team_roles']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_team_roles']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_schemax_team_roles']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_team_roles']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_schemax_team_roles']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_schemax_team_roles']['field_api_classes'] = TRUE;
-  /* Field: Content: League */
-  $handler->display->display_options['fields']['field_schemax_league']['id'] = 'field_schemax_league';
-  $handler->display->display_options['fields']['field_schemax_league']['table'] = 'field_data_field_schemax_league';
-  $handler->display->display_options['fields']['field_schemax_league']['field'] = 'field_schemax_league';
-  $handler->display->display_options['fields']['field_schemax_league']['label'] = '';
-  $handler->display->display_options['fields']['field_schemax_league']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_schemax_league']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_schemax_league']['element_wrapper_type'] = '0';
-  $handler->display->display_options['fields']['field_schemax_league']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_schemax_league']['field_api_classes'] = TRUE;
   /* Sort criterion: Content: Last Name (field_schemax_last_name) */
   $handler->display->display_options['sorts']['field_schemax_last_name_value']['id'] = 'field_schemax_last_name_value';
   $handler->display->display_options['sorts']['field_schemax_last_name_value']['table'] = 'field_data_field_schemax_last_name';
@@ -854,6 +860,9 @@ function schemax_team_views_default_views() {
     t('last »'),
     t('There is no content in this group.'),
     t('OG membership from node'),
+    t('Name'),
+    t('Phone'),
+    t('Email'),
     t('All'),
     t('Content pane'),
     t('View panes'),
