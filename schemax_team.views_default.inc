@@ -105,6 +105,7 @@ function schemax_team_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'My teams';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -132,6 +133,13 @@ function schemax_team_views_default_views() {
       'separator' => '',
     ),
   );
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['label'] = 'My teams';
+  $handler->display->display_options['header']['area']['content'] = 'My teams';
+  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -195,7 +203,7 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['filters']['entity_type']['value'] = 'user';
 
   /* Display: My teams */
-  $handler = $view->new_display('panel_pane', 'My teams', 'panel_pane_1');
+  $handler = $view->new_display('panel_pane', 'My teams', 'panel_pane_my_teams');
   $handler->display->display_options['pane_title'] = 'My teams';
   $handler->display->display_options['pane_description'] = 'Teams you belong to';
   $handler->display->display_options['pane_category']['name'] = 'Sports';
@@ -212,7 +220,7 @@ function schemax_team_views_default_views() {
   );
 
   /* Display: My teams - short */
-  $handler = $view->new_display('panel_pane', 'My teams - short', 'panel_pane_2');
+  $handler = $view->new_display('panel_pane', 'My teams - short', 'panel_pane_my_teams_short');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['display_description'] = 'Minimalist representation of a user\'s teams';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -265,6 +273,7 @@ function schemax_team_views_default_views() {
   );
   $translatables['schemax_user_teams'] = array(
     t('Master'),
+    t('My teams'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -284,7 +293,6 @@ function schemax_team_views_default_views() {
     t('Member since'),
     t('All'),
     t('%1\'s groups'),
-    t('My teams'),
     t('Teams you belong to'),
     t('Sports'),
     t('My teams - short'),
