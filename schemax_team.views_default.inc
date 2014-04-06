@@ -376,6 +376,16 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
+  /* Field: Content: Type */
+  $handler->display->display_options['fields']['field_schemax_event_type']['id'] = 'field_schemax_event_type';
+  $handler->display->display_options['fields']['field_schemax_event_type']['table'] = 'field_data_field_schemax_event_type';
+  $handler->display->display_options['fields']['field_schemax_event_type']['field'] = 'field_schemax_event_type';
+  $handler->display->display_options['fields']['field_schemax_event_type']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_event_type']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_event_type']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_schemax_event_type']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_schemax_event_type']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_schemax_event_type']['field_api_classes'] = TRUE;
   /* Field: Content: Date */
   $handler->display->display_options['fields']['field_date']['id'] = 'field_date';
   $handler->display->display_options['fields']['field_date']['table'] = 'field_data_field_date';
@@ -418,11 +428,10 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_schemax_playing_surfaces']['field_api_classes'] = TRUE;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Content: Date - end date (field_date:value2) */
+  $handler->display->display_options['sorts']['field_date_value2']['id'] = 'field_date_value2';
+  $handler->display->display_options['sorts']['field_date_value2']['table'] = 'field_data_field_date';
+  $handler->display->display_options['sorts']['field_date_value2']['field'] = 'field_date_value2';
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';
   $handler->display->display_options['arguments']['gid']['table'] = 'og_membership';
@@ -459,8 +468,47 @@ function schemax_team_views_default_views() {
   $handler->display->display_options['filters']['field_date_value2']['id'] = 'field_date_value2';
   $handler->display->display_options['filters']['field_date_value2']['table'] = 'field_data_field_date';
   $handler->display->display_options['filters']['field_date_value2']['field'] = 'field_date_value2';
-  $handler->display->display_options['filters']['field_date_value2']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_date_value2']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_date_value2']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_date_value2']['expose']['operator_id'] = 'field_date_value2_op';
+  $handler->display->display_options['filters']['field_date_value2']['expose']['label'] = 'Date Range';
+  $handler->display->display_options['filters']['field_date_value2']['expose']['operator'] = 'field_date_value2_op';
+  $handler->display->display_options['filters']['field_date_value2']['expose']['identifier'] = 'field_date_value2';
+  $handler->display->display_options['filters']['field_date_value2']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    7 => 0,
+    8 => 0,
+    6 => 0,
+    9 => 0,
+  );
   $handler->display->display_options['filters']['field_date_value2']['default_date'] = 'now';
+  /* Filter criterion: Content: Type (field_schemax_event_type) */
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['id'] = 'field_schemax_event_type_tid';
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['table'] = 'field_data_field_schemax_event_type';
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['field'] = 'field_schemax_event_type_tid';
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['expose']['operator_id'] = 'field_schemax_event_type_tid_op';
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['expose']['operator'] = 'field_schemax_event_type_tid_op';
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['expose']['identifier'] = 'field_schemax_event_type_tid';
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    7 => 0,
+    8 => 0,
+    6 => 0,
+    9 => 0,
+  );
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_schemax_event_type_tid']['vocabulary'] = 'event_types';
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
@@ -498,10 +546,12 @@ function schemax_team_views_default_views() {
     t('OG membership from node'),
     t('Content entity referenced from field_schemax_location_reference'),
     t('Title'),
+    t('Type'),
     t('Date'),
     t('Location'),
     t('Surface'),
     t('All'),
+    t('Date Range'),
     t('Content pane'),
     t('View panes'),
     t('Page'),
