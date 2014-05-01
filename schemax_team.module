@@ -6,3 +6,219 @@
 
 include_once 'schemax_team.features.inc';
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * where FORM_ID is schemax_news_node_form
+ *
+ */
+function schemax_team_form_schemax_news_node_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get og context if it exists.
+  $og_context = og_context();
+  $team_id = $og_context['gid'];
+
+  // If the team exists, add checkboxes for all persons associated with team.
+  if (!empty($team_id)) {
+
+    $node = $form_state['node'];
+
+    // Check if this is a new node.
+    if (!isset($node->nid) || isset($node->is_new)) {
+
+      // Get a list of all contact information (e.g. email) associated with
+      // persons on the team.
+      $team_persons = get_team_persons($team_id);
+
+      // Instantiate an array to hold table data.
+      $options = array();
+
+      // Populate table data array.
+      foreach ($team_persons as $team_person) {
+        $nid = $team_person->nid;
+        $role = $team_person->team_role;
+        $name = $team_person->name;
+
+        // Check if person already in table data.
+        // Search recursively for name in options array.
+        // If it exists, just append the role
+        if (in_array_recursive($name, $options)) {
+          $options[$nid]['roles'] .= ', ' . $role;
+        }
+        // If name doesn't already exist, add element with name and role.
+        else {
+          $options[$nid]['name'] = $name;
+          $options[$nid]['roles'] = $role;
+        }
+      }
+
+      // Add array for table header.
+      $header = array(
+        'name' => t('Name'),
+        'roles' => t('Roles'),
+      );
+
+      // Contruct tableselect form element.
+      $form['table_team_persons'] = array(
+        '#type' => 'tableselect',
+        '#header' => $header,
+        '#options' => $options,
+      );
+    }
+    else {
+      // This is not a new node.
+    }
+  }
+}
+
+/*
+ * Implements hook_node_insert().
+ */
+function schemax_team_node_insert($node) {
+
+  list(,, $bundle) = entity_extract_ids('node', $node);
+  if (!og_is_group_content_type('node', $bundle)) {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  if (!$wrapper->{'og_membership__' . OG_STATE_ACTIVE}->value()) {
+    // Node isn't associated, or doesn't have an active association with
+    // any group.
+    return;
+  }
+
+  $nids = array();
+  foreach ($wrapper->{'og_membership__' . OG_STATE_ACTIVE}->value() as $og_membership) {
+    if ($og_membership->group_type != 'node') {
+      // For simplicity we operate only on membership with node groups.
+      continue;
+    }
+    $nids[] = $og_membership->gid;
+  }
+
+  if (!$nids) {
+    return;
+  }
+
+  // Create a "Post in group" message. We don't use a token replacement
+  // here as it needs to get the data from multiple values of the field.
+  // Furthermore, this replacement probably doesn't make sense outside of
+  // this message-type context, so we don't want to add another token,
+  // that will not be used.
+  $arguments['!groups'] = array(
+    'callback' => 'teams_list',
+    'pass message' => TRUE,
+  );
+  $message = message_create('schemax_message', array('arguments' => $arguments, 'uid' => $node->uid));
+
+  $wrapper = entity_metadata_wrapper('message', $message);
+  $wrapper->field_schemax_node_reference->set($node);
+  $wrapper->field_schemax_team_reference->set($nids);
+  $wrapper->field_schemax_published->set($node->status);
+  $wrapper->save();
+
+  if (!empty($node->table_team_persons)) {
+
+  // Get array of persons checked by user on news form.
+  $checked_recipients = array_filter($node->table_team_persons);
+
+  // Get the recipient keys (node ids).
+  $recipient_keys = array_keys($checked_recipients);
+
+  // Load the person nodes corresponding to the recipient keys.
+  $recipients = entity_load('node', $recipient_keys);
+
+
+    // Let message-notify deliver the email, and send the message for us.
+    // We pass in the options the field names, that will be used to capture
+    // the rendered message, and provide an email log.
+    $options = array(
+      'rendered fields' => array(
+        'message_notify_email_subject' => 'field_schemax_rendered_subject',
+        'message_notify_email_body' => 'field_schemax_rendered_body',
+      ),
+      'mail' => 'simon@schemax.com, eft@schemax.com',
+    );
+
+    message_notify_send_message($message, $options);
+  }
+}
+
+/*
+ * Retrieves the id, name and roles of each person on a team.
+ *
+ */
+function get_team_persons($team_id) {
+
+  $bundle = 'schemax_person';
+
+  // Construct select statement that retrieves the node id and the name
+  // of every person on the team
+  $select = 'SELECT DISTINCT ';
+  $select .= 'n.nid, ';
+  $select .= "CONCAT_WS(' ',first.field_schemax_first_name_value, last.field_schemax_last_name_value) name, ";
+  $select .= 'terms.name team_role ';
+  $select .= 'FROM {node} n ';
+  $select .= 'INNER JOIN {og_membership} ogm ON n.nid = ogm.etid ';
+  $select .= 'INNER JOIN {field_data_field_schemax_first_name} first ON n.nid = first.entity_id ';
+  $select .= 'INNER JOIN {field_data_field_schemax_last_name} last ON n.nid = last.entity_id ';
+  $select .= 'INNER JOIN {field_data_field_schemax_team_roles} roles ON n.nid = roles.entity_id ';
+  $select .= 'INNER JOIN {taxonomy_term_data} terms ON roles.field_schemax_team_roles_tid = terms.tid ';
+  $select .= 'WHERE ';
+  $select .= 'ogm.gid = :gid ';
+  $select .= 'AND n.type = :bundle ';
+  $select .= 'ORDER BY terms.weight, name ';
+
+  // Run query
+  $result = db_query($select, array(':gid' => $team_id, ':bundle' => $bundle));
+
+  // Fetch ids and names in an array
+  $team_persons = $result->fetchAll();
+
+  return $team_persons;
+}
+
+/**
+ * Message callback; Show a comma separated list of groups.
+ *
+ * see the message_og_example module
+ *
+ * @param $message
+ *   The message entity.
+ */
+function teams_list(Message $message) {
+  $wrapper = entity_metadata_wrapper('message', $message);
+  $items = array();
+  foreach ($wrapper->field_schemax_team_reference->value() as $node) {
+    if (!node_access('view', $node)) {
+      // User doesn't have access to view the group.
+      continue;
+    }
+    $url = entity_uri('node', $node);
+    $label = entity_label('node', $node);
+    $items[] = l($label, $url['path'], $url['options']);
+  }
+  return implode(', ', $items);
+}
+
+/**
+ * Utility function to find key in nested array
+ *
+ * see http://stackoverflow.com/questions/4128323/in-array-and-multidimensional-array
+ *
+ * @param type $needle
+ * @param type $haystack
+ * @param type $strict
+ * @return boolean
+ */
+function in_array_recursive($needle, $haystack, $strict = false) {
+  foreach ($haystack as $item) {
+    if (($strict ? $item === $needle : $item == $needle) ||
+        (is_array($item) && in_array_recursive($needle, $item, $strict))) {
+      return true;
+    }
+  }
+
+  return false;
+}
