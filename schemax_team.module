@@ -16,11 +16,11 @@ function schemax_team_form_schemax_news_node_form_alter(&$form, &$form_state, $f
 
   // Get og context if it exists.
   $og_context = og_context();
-  $team_id = $og_context['gid'];
 
   // If the team exists, add checkboxes for all persons associated with team.
-  if (!empty($team_id)) {
+  if (isset($og_context['gid'])) {
 
+    $team_id = $og_context['gid'];
     $node = $form_state['node'];
 
     // Check if this is a new node.
